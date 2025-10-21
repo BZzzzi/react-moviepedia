@@ -1,3 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --modal-z-index: 1000;
+}
