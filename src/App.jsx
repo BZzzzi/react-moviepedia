@@ -25,6 +25,23 @@ function App() {
     setIsOpen(false);
   };
 
+  const handleUpdate = (id, data) => {
+    const index = items.findIndex((item) => item.id === id);
+    const now = new Date();
+    const newItem = {
+      ...items[index],
+      ...data,
+      updatedAt: now.valueOf(),
+    };
+    const newItems = [
+      ...items.slice(0, index),
+      newItem,
+      ...items.slice(index + 1),
+    ];
+
+    setItems(newItems);
+  };
+
   const handleDelete = (id) => {
     const nextItem = items.filter((item) => item.id !== id);
     setItems(nextItem);
@@ -39,7 +56,11 @@ function App() {
         <h2>리뷰 생성</h2>
         <CreateReviewForm onSubmit={handleCreate} />
       </Modal>
-      <ReviewList items={sortedItem} onDelete={handleDelete} />
+      <ReviewList
+        items={sortedItem}
+        onDelete={handleDelete}
+        onUpdate={handleUpdate}
+      />
     </>
   );
 }
