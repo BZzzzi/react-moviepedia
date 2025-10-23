@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import Button from "./Button";
 
 function ReviewForm({
   review = {
@@ -42,7 +43,7 @@ function ReviewForm({
           defaultValue={review.content}
           placeholder="내용을 입력해 주세요."
         />
-        <button>수정완료</button>
+        <Button>수정완료</Button>
       </form>
     </div>
   );

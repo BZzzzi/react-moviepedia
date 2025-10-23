@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import styles from "./ReviewListItem.module.css";
+import Button from "./Button";
 import ReviewForm from "./ReviewForm";
 
 function ReviewListItem({ item, onUpdate, onDelete }) {
@@ -15,7 +16,9 @@ function ReviewListItem({ item, onUpdate, onDelete }) {
         <p>{item.rating}</p>
         <p>{dateString}</p>
         <p>{item.content}</p>
-        <button onClick={() => setIsOpen(true)}>수정</button>
+        <Button variant="ghost" onClick={() => setIsOpen(true)}>
+          수정
+        </Button>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <ReviewForm
             review={item}
@@ -25,7 +28,9 @@ function ReviewListItem({ item, onUpdate, onDelete }) {
             }}
           />
         </Modal>
-        <button onClick={() => onDelete(item.id)}>삭제</button>
+        <Button variant="danger" onClick={() => onDelete(item.id)}>
+          삭제
+        </Button>
       </div>
     </div>
   );

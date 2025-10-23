@@ -5,6 +5,7 @@ import monkItems from "./mock.json";
 import ReviewForm from "./components/ReviewForm";
 import catImg from "./asset/cat.jpg";
 import Layout from "./components/Layout";
+import Button from "./components/Button";
 
 function App() {
   const [order, setOrder] = useState();
@@ -51,9 +52,19 @@ function App() {
   return (
     <>
       <Layout>
-        <button onClick={() => setOrder("createdAt")}>최신순</button>
-        <button onClick={() => setOrder("rating")}>베스트순</button>
-        <button onClick={() => setIsOpen(true)}>추가하기</button>
+        <Button
+          variant={order === "createdAt" ? "primary" : "second"}
+          onClick={() => setOrder("createdAt")}
+        >
+          최신순
+        </Button>
+        <Button
+          variant={order === "rating" ? "primary" : "second"}
+          onClick={() => setOrder("rating")}
+        >
+          베스트순
+        </Button>
+        <Button onClick={() => setIsOpen(true)}>추가하기</Button>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <h2>리뷰 생성</h2>
           <ReviewForm onSubmit={handleCreate} />
