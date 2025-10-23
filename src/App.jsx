@@ -6,9 +6,10 @@ import ReviewForm from "./components/ReviewForm";
 import catImg from "./asset/cat.jpg";
 import Layout from "./components/Layout";
 import Button from "./components/Button";
+import styles from "./App.module.css";
 
 function App() {
-  const [order, setOrder] = useState();
+  const [order, setOrder] = useState("createdAt");
   const [items, setItems] = useState(monkItems);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,23 +53,30 @@ function App() {
   return (
     <>
       <Layout>
-        <Button
-          variant={order === "createdAt" ? "primary" : "second"}
-          onClick={() => setOrder("createdAt")}
-        >
-          최신순
-        </Button>
-        <Button
-          variant={order === "rating" ? "primary" : "second"}
-          onClick={() => setOrder("rating")}
-        >
-          베스트순
-        </Button>
-        <Button onClick={() => setIsOpen(true)}>추가하기</Button>
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <h2>리뷰 생성</h2>
-          <ReviewForm onSubmit={handleCreate} />
-        </Modal>
+        {/* 메인 header */}
+        <header className={styles.header}>
+          <div className={styles.orderButton}>
+            <Button
+              variant={order === "createdAt" ? "primary" : "second"}
+              onClick={() => setOrder("createdAt")}
+            >
+              최신순
+            </Button>
+            <Button
+              variant={order === "rating" ? "primary" : "second"}
+              onClick={() => setOrder("rating")}
+            >
+              베스트순
+            </Button>
+          </div>
+          <Button onClick={() => setIsOpen(true)}>추가하기</Button>
+          <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <h2>리뷰 생성</h2>
+            <ReviewForm onSubmit={handleCreate} />
+          </Modal>
+        </header>
+
+        {/* 메인 List */}
         <ReviewList
           items={sortedItem}
           onDelete={handleDelete}
