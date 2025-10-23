@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Modal from "./Modal";
+import Modal from "../modal/Modal";
 import styles from "./ReviewListItem.module.css";
-import Button from "./Button";
-import ReviewForm from "./ReviewForm";
+import Button from "../common/Button";
+import ReviewForm from "../modal/ReviewForm";
 
 function ReviewListItem({ item, onUpdate, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);

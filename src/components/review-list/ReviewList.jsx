@@ -1,6 +1,6 @@
 import ReviewListItem from "./ReviewListItem";
 import styles from "./ReviewList.module.css";
-import Button from "./Button";
+import Button from "../common/Button";
 import { useState } from "react";
 
 function ReviewList({ items, onDelete, onUpdate }) {
