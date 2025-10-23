@@ -2,8 +2,9 @@ import { useState } from "react";
 import ReviewList from "./components/ReviewList";
 import Modal from "./components/Modal";
 import monkItems from "./mock.json";
-import CreateReviewForm from "./components/CreateReviewForm";
+import ReviewForm from "./components/ReviewForm";
 import catImg from "./asset/cat.jpg";
+import Layout from "./components/Layout";
 
 function App() {
   const [order, setOrder] = useState();
@@ -49,18 +50,20 @@ function App() {
 
   return (
     <>
-      <button onClick={() => setOrder("createdAt")}>최신순</button>
-      <button onClick={() => setOrder("rating")}>베스트순</button>
-      <button onClick={() => setIsOpen(true)}>추가하기</button>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <h2>리뷰 생성</h2>
-        <CreateReviewForm onSubmit={handleCreate} />
-      </Modal>
-      <ReviewList
-        items={sortedItem}
-        onDelete={handleDelete}
-        onUpdate={handleUpdate}
-      />
+      <Layout>
+        <button onClick={() => setOrder("createdAt")}>최신순</button>
+        <button onClick={() => setOrder("rating")}>베스트순</button>
+        <button onClick={() => setIsOpen(true)}>추가하기</button>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <h2>리뷰 생성</h2>
+          <ReviewForm onSubmit={handleCreate} />
+        </Modal>
+        <ReviewList
+          items={sortedItem}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
+        />
+      </Layout>
     </>
   );
 }
