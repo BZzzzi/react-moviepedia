@@ -1,7 +1,19 @@
-* {
-  box-sizing: border-box;
-}
-
 :root {
   --modal-z-index: 1000;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Nanum Gothic", sans-serif;
+  color: var(--gray-800);
+}
+
+ol,
+ul {
+  list-style: none;
 }
