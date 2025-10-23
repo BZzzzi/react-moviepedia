@@ -10,7 +10,6 @@ function Modal({ children, isOpen, onClose }) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         {children}
-        <button onClick={onClose}>닫기</button>
       </div>
     </div>,
     document.querySelector("#modal-root")

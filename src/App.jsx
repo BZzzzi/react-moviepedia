@@ -3,7 +3,6 @@ import ReviewList from "./components/ReviewList";
 import Modal from "./components/Modal";
 import monkItems from "./mock.json";
 import ReviewForm from "./components/ReviewForm";
-import catImg from "./asset/cat.jpg";
 import Layout from "./components/Layout";
 import Button from "./components/Button";
 import styles from "./App.module.css";
@@ -17,9 +16,9 @@ function App() {
 
   const handleCreate = (data) => {
     const now = new Date();
+    console.log(data.imgUrl);
     const newItem = {
       id: items.length + 1,
-      imgUrl: catImg,
       ...data,
       createdAt: now.valueOf(),
       updatedAt: now.valueOf(),
@@ -71,7 +70,7 @@ function App() {
           </div>
           <Button onClick={() => setIsOpen(true)}>추가하기</Button>
           <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <h2>리뷰 생성</h2>
+            <h1>리뷰 생성</h1>
             <ReviewForm onSubmit={handleCreate} />
           </Modal>
         </header>

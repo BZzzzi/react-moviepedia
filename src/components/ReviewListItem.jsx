@@ -9,28 +9,31 @@ function ReviewListItem({ item, onUpdate, onDelete }) {
   const dateString = new Date(item.createdAt).toLocaleDateString();
 
   return (
-    <div className={styles.item}>
+    <div className={styles.wrapper}>
       <img className={styles.image} src={item.imgUrl} alt={item.title} />
-      <div>
-        <h1>{item.title}</h1>
-        <p>{item.rating}</p>
+      <div className={styles.item}>
+        <h2>{item.title}</h2>
+        <p>{"★".repeat(item.rating)}</p>
         <p>{dateString}</p>
         <p>{item.content}</p>
-        <Button variant="ghost" onClick={() => setIsOpen(true)}>
-          수정
-        </Button>
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <ReviewForm
-            review={item}
-            onSubmit={(data) => {
-              onUpdate(item.id, data);
-              setIsOpen(false);
-            }}
-          />
-        </Modal>
-        <Button variant="danger" onClick={() => onDelete(item.id)}>
-          삭제
-        </Button>
+        <div className={styles.button}>
+          <Button variant="ghost" onClick={() => setIsOpen(true)}>
+            수정
+          </Button>
+          <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <h1>리뷰 수정</h1>
+            <ReviewForm
+              review={item}
+              onSubmit={(data) => {
+                onUpdate(item.id, data);
+                setIsOpen(false);
+              }}
+            />
+          </Modal>
+          <Button variant="danger" onClick={() => onDelete(item.id)}>
+            삭제
+          </Button>
+        </div>
       </div>
     </div>
   );
