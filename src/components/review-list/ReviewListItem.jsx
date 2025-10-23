@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "../modal/Modal";
 import styles from "./ReviewListItem.module.css";
 import Button from "../common/Button";
 import ReviewForm from "../modal/ReviewForm";
+import LocaleContext from "../../contexts/LocaleContext";
 
 function ReviewListItem({ item, onUpdate, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
+  const locale = useContext(LocaleContext);
   const dateString = new Date(item.createdAt).toLocaleDateString();
 
   return (
@@ -34,6 +36,7 @@ function ReviewListItem({ item, onUpdate, onDelete }) {
             삭제
           </Button>
         </div>
+        <p>현재 언어: {locale}</p>
       </div>
     </div>
   );

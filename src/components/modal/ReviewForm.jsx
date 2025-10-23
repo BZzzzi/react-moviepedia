@@ -3,7 +3,7 @@ import Button from "../common/Button";
 import Input from "../common/Input";
 import Select from "../common/Select";
 import Textarea from "../common/Textarea";
-import placeholderImg from "../asset/placeholder.webp";
+import placeholderImg from "../../asset/placeholder.webp";
 import styles from "./ReviewForm.module.css";
 
 function ReviewForm({
