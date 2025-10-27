@@ -2,8 +2,10 @@ import ReviewListItem from "./ReviewListItem";
 import styles from "./ReviewList.module.css";
 import Button from "../common/Button";
 import { useState } from "react";
+import useTranslate from "../../hooks/useTranslate";
 
 function ReviewList({ items, onDelete, onUpdate }) {
+  const t = useTranslate();
   const [visibleCount, setVisibleCount] = useState(5);
 
   return (
@@ -27,7 +29,7 @@ function ReviewList({ items, onDelete, onUpdate }) {
             setVisibleCount(visibleCount + 5);
           }}
         >
-          더보기
+          {t("load more")}
         </Button>
       )}
     </div>

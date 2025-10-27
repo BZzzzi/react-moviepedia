@@ -1,6 +1,11 @@
 import logo from "../asset/logo.svg";
+import LocaleSelect from "../contexts/LocaleSelect";
 import styles from "./Layout.module.css";
+import useTranslate from "../hooks/useTranslate";
+
 function Layout({ children }) {
+  const t = useTranslate();
+
   return (
     <div className={styles.layout}>
       {/* 사이트 header */}
@@ -10,10 +15,7 @@ function Layout({ children }) {
             <img src={logo} alt="로고" />
           </a>
           <div>
-            <select className={styles.select}>
-              <option value={1}>한국어</option>
-              <option value={2}>영어</option>
-            </select>
+            <LocaleSelect className={styles.select} />
           </div>
         </header>
       </div>
@@ -26,7 +28,7 @@ function Layout({ children }) {
       {/* 사이트 footer */}
       <div className={styles.footerBg}>
         <footer className={styles.footer}>
-          서비스 이용약관 | 개인정보 처리방침
+          {t("term of service")} | {t("privacy policy")}
         </footer>
       </div>
     </div>

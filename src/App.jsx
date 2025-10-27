@@ -6,9 +6,10 @@ import ReviewForm from "./components/modal/ReviewForm";
 import Layout from "./components/Layout";
 import Button from "./components/common/Button";
 import styles from "./App.module.css";
-import LocaleContext from "./contexts/LocaleContext";
+import useTranslate from "./hooks/useTranslate.js";
 
 function App() {
+  const t = useTranslate();
   const [order, setOrder] = useState("createdAt");
   const [items, setItems] = useState(monkItems);
   const [isOpen, setIsOpen] = useState(false);
@@ -52,39 +53,37 @@ function App() {
 
   return (
     <>
-      <LocaleContext.Provider value="ko">
-        <Layout>
-          {/* 메인 header */}
-          <header className={styles.header}>
-            <div className={styles.orderButton}>
-              <Button
-                variant={order === "createdAt" ? "primary" : "second"}
-                onClick={() => setOrder("createdAt")}
-              >
-                최신순
-              </Button>
-              <Button
-                variant={order === "rating" ? "primary" : "second"}
-                onClick={() => setOrder("rating")}
-              >
-                베스트순
-              </Button>
-            </div>
-            <Button onClick={() => setIsOpen(true)}>추가하기</Button>
-            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <h1>리뷰 생성</h1>
-              <ReviewForm onSubmit={handleCreate} />
-            </Modal>
-          </header>
+      <Layout>
+        {/* 메인 header */}
+        <header className={styles.header}>
+          <div className={styles.orderButton}>
+            <Button
+              variant={order === "createdAt" ? "primary" : "second"}
+              onClick={() => setOrder("createdAt")}
+            >
+              {t("sort by latest")}
+            </Button>
+            <Button
+              variant={order === "rating" ? "primary" : "second"}
+              onClick={() => setOrder("rating")}
+            >
+              {t("sort by best")}
+            </Button>
+          </div>
+          <Button onClick={() => setIsOpen(true)}>{t("create button")}</Button>
+          <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <h1>{t("create review title")}</h1>
+            <ReviewForm onSubmit={handleCreate} />
+          </Modal>
+        </header>
 
-          {/* 메인 List */}
-          <ReviewList
-            items={sortedItem}
-            onDelete={handleDelete}
-            onUpdate={handleUpdate}
-          />
-        </Layout>
-      </LocaleContext.Provider>
+        {/* 메인 List */}
+        <ReviewList
+          items={sortedItem}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
+        />
+      </Layout>
     </>
   );
 }
