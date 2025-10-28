@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import Select from "../common/Select";
@@ -19,6 +19,18 @@ function ReviewForm({
   const t = useTranslate();
   const inputRef = useRef(null);
 
+  const [state, formAction, isPending] = useActionState(
+    async (prevState, data) => {
+      try {
+        await onSubmit(data);
+        return { error: null };
+      } catch (error) {
+        return { error };
+      }
+    },
+    { error: null }
+  );
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -27,7 +39,7 @@ function ReviewForm({
 
   return (
     <div>
-      <form action={onSubmit} className={styles.modalForm}>
+      <form action={formAction} className={styles.modalForm}>
         <FileInput name="imgFile" initialPreview={review.imgUrl} />
         <div className={styles.formLayout}>
           <div className={styles.formContent}>
@@ -56,7 +68,10 @@ function ReviewForm({
             placeholder={t("review content placeholder")}
             className={styles.textarea}
           />
-          <Button>{t("submit button")}</Button>
+          <div className={styles.footer}>
+            {state.error && <p>요청 중 오류가 발생했습니다.</p>}
+            <Button disabled={isPending}>{t("submit button")}</Button>
+          </div>
         </div>
       </form>
     </div>

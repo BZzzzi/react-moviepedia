@@ -25,3 +25,15 @@
 .textarea {
   flex-grow: 1;
 }
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0 auto;
+  color: red;
+}

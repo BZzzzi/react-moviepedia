@@ -3,6 +3,11 @@
   cursor: pointer;
 }
 
+.button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
 .primary {
   padding: 13px 40px;
   border-radius: 0 12px;
