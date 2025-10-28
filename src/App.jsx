@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReviewList from "./components/review-list/ReviewList";
 import Modal from "./components/modal/Modal";
 import ReviewForm from "./components/modal/ReviewForm";
@@ -16,8 +16,10 @@ function App() {
   const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [hasNext, setHasNext] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleLoad = async (orderParam) => {
+  const handleLoad = useCallback(async (orderParam) => {
     const res = await axios.get("/film-reviews", {
       params: {
         order: orderParam,
@@ -28,17 +30,28 @@ function App() {
     const { reviews, paging } = res.data;
     setItems(reviews);
     setHasNext(paging.hasNext);
-  };
+  }, []);
 
   const handleLoadMore = async () => {
-    const res = await axios.get("/film-reviews", {
-      params: {
-        order,
-        offset: items.length,
-        limit: LIMIT,
-      },
-    });
-    const { reviews, paging } = res.data;
+    let data = null;
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await axios.get("/film-reviews", {
+        params: {
+          order,
+          offset: items.length,
+          limit: LIMIT,
+        },
+      });
+      data = res.data;
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+    if (!data) return;
+    const { reviews, paging } = data;
     setItems((prevItems) => [...prevItems, ...reviews]);
     setHasNext(paging.hasNext);
   };
@@ -70,7 +83,7 @@ function App() {
 
   useEffect(() => {
     handleLoad(order);
-  }, [order]);
+  }, [order, handleLoad]);
 
   return (
     <>
@@ -105,6 +118,8 @@ function App() {
           onUpdate={handleUpdate}
           onLoadMore={handleLoadMore}
           hasNext={hasNext}
+          isLoading={isLoading}
+          isError={error}
         />
       </Layout>
     </>
