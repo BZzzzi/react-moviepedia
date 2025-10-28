@@ -3,14 +3,14 @@ import Button from "../common/Button";
 import Input from "../common/Input";
 import Select from "../common/Select";
 import Textarea from "../common/Textarea";
-import placeholderImg from "../../asset/placeholder.webp";
 import styles from "./ReviewForm.module.css";
 import useTranslate from "../../hooks/useTranslate";
+import FileInput from "../common/FileInput";
 
 function ReviewForm({
   review = {
     title: "",
-    imgUrl: placeholderImg,
+    imgUrl: "",
     rating: 1,
     content: "",
   },
@@ -25,19 +25,10 @@ function ReviewForm({
     }
   }, []);
 
-  const submit = (formData) => {
-    const data = Object.fromEntries(formData.entries());
-    console.log(data);
-
-    onSubmit(data);
-  };
-  // console.log(review.imgUrl);
-
   return (
     <div>
-      <form action={submit} className={styles.modalForm}>
-        <img src={review.imgUrl} className={styles.formImg} />
-        <input type="hidden" name="imgUrl" value={review.imgUrl} />
+      <form action={onSubmit} className={styles.modalForm}>
+        <FileInput name="imgFile" initialPreview={review.imgUrl} />
         <div className={styles.formLayout}>
           <div className={styles.formContent}>
             <Input
