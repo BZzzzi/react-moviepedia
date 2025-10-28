@@ -4,14 +4,13 @@ import Button from "../common/Button";
 import { useState } from "react";
 import useTranslate from "../../hooks/useTranslate";
 
-function ReviewList({ items, onDelete, onUpdate }) {
+function ReviewList({ items, onDelete, onUpdate, onLoadMore, hasNext }) {
   const t = useTranslate();
-  const [visibleCount, setVisibleCount] = useState(5);
 
   return (
     <div className={styles.mainBox}>
       <ul>
-        {items.slice(0, visibleCount).map((item) => (
+        {items.map((item) => (
           <li key={item.id} className={styles.listBox}>
             <ReviewListItem
               item={item}
@@ -21,13 +20,11 @@ function ReviewList({ items, onDelete, onUpdate }) {
           </li>
         ))}
       </ul>
-      {items.length > visibleCount && (
+      {hasNext && (
         <Button
           variant="second"
           className={styles.moreShow}
-          onClick={() => {
-            setVisibleCount(visibleCount + 5);
-          }}
+          onClick={() => onLoadMore()}
         >
           {t("load more")}
         </Button>

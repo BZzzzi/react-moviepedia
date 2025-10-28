@@ -4,6 +4,7 @@ import styles from "./ReviewListItem.module.css";
 import Button from "../common/Button";
 import ReviewForm from "../modal/ReviewForm";
 import useTranslate from "../../hooks/useTranslate";
+import placeholderImg from "../../asset/placeholder.webp";
 
 function ReviewListItem({ item, onUpdate, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,11 @@ function ReviewListItem({ item, onUpdate, onDelete }) {
 
   return (
     <div className={styles.wrapper}>
-      <img className={styles.image} src={item.imgUrl} alt={item.title} />
+      <img
+        className={styles.image}
+        src={item.imgUrl ? item.imgUrl : placeholderImg}
+        alt={item.title}
+      />
       <div className={styles.item}>
         <h2>{item.title}</h2>
         <p>{"★".repeat(item.rating)}</p>

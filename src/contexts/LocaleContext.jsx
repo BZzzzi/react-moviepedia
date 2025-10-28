@@ -17,7 +17,6 @@ export function useLocale() {
   if (!context) {
     throw new Error("반드시 LocaleProvider 안에서 사용해야 합니다.");
   }
-
   const { locale } = context;
   return locale;
 }
